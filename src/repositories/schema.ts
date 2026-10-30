@@ -4,7 +4,7 @@ export const initializeDatabase = async () => {
   const db = await getDatabase();
   await db.execAsync(`
         PRAGMA foreign_keys = ON;
-        CREATE TABLE IF NOT EXISTS tutor (
+        CREATE TABLE IF NOT EXISTS tutor(
         id_tutor INTEGER PRIMARY KEY,
         nome_tutor TEXT NOT NULL,
         telefone TEXT,
@@ -13,7 +13,7 @@ export const initializeDatabase = async () => {
         );
 
 
-        CREATE TABLE IF NOT EXISTS pet (
+        CREATE TABLE IF NOT EXISTS pet(
         id_pet INTEGER PRIMARY KEY,
         nome_pet TEXT NOT NULL,
         id_tutor INTEGER,        
@@ -27,9 +27,10 @@ export const initializeDatabase = async () => {
         microchip TEXT,
         castrado INTEGER,
 
-        FOREIGN KEY (id_tutor) REFERENCES tutor(id_tutor),
+        FOREIGN KEY (id_tutor) REFERENCES tutor(id_tutor)
         
         );
+
         CREATE TABLE IF NOT EXISTS vacina(
         id_vacina INTEGER PRIMARY KEY,
         nome_vacina TEXT NOT NULL,
@@ -48,7 +49,7 @@ export const initializeDatabase = async () => {
         lembrete_ativo INTEGER,
         id_pet INTEGER,
         duracao INTEGER,
-        FOREIGN KEY id_pet REFERENCES pet(id_pet)
+        FOREIGN KEY (id_medicamento) REFERENCES pet(id_medicamento)
 
         );
 
@@ -57,7 +58,7 @@ export const initializeDatabase = async () => {
         data_aplicacao TEXT,
         proxima_dose TEXT,
         id_vacina INTEGER,
-        FOREIGN KEY id_vacina REFERENCES vacina(id_vacina)
+        FOREIGN KEY (id_vacina) REFERENCES vacina(id_vacina)
         
         );
 
@@ -66,8 +67,8 @@ export const initializeDatabase = async () => {
         data_administracao TEXT,
         data_registro TEXT,
         id_medicamento INTEGER,
-        FOREIGN KEY id_medicamento REFERENCES medicamento(id_medicamento)
-        );
+        FOREIGN KEY (id_medicamento) REFERENCES medicamento(id_medicamento)
+        )
 
 
         `);
