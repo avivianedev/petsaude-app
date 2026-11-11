@@ -1,12 +1,27 @@
+import { useDatabaseInit } from '@/hooks/useDatabaseInit';
 import { Stack } from 'expo-router';
-import { SQLiteProvider } from 'expo-sqlite';
-
-import { initializeDatabase } from '@/repositories/schema';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function RootLayout() {
-  return (
-    <SQLiteProvider databaseName='petsaude.db' onInit={initializeDatabase}>
-      <Stack />
-    </SQLiteProvider>
-  );
+  const { ready, error } = useDatabaseInit();
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text>{error}</Text>
+      </View>
+    );
+  }
+  if (!ready) {
+    return null;
+  }
+  return <Stack />;
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
