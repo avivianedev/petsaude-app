@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Text>Comece a desenvolver o seu App</Text>
+      <Text>Pet Saude</Text>
     </View>
   );
 }
