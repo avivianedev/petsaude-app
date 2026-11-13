@@ -1,4 +1,4 @@
-import { initializeDatabase } from '@/repositories/schema';
+import { initializeDatabase } from '@/repositories/initializeDatabase';
 import { useEffect, useState } from 'react';
 
 export const useDatabaseInit = () => {

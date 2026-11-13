@@ -1,7 +1,6 @@
-import { getDatabase } from './database';
+import type { Database } from '@/repositories/types';
 
-export const initializeDatabase = async () => {
-  const db = await getDatabase();
+export const createTables = async (db: Database): Promise<void> => {
   await db.execAsync(`
         PRAGMA foreign_keys = ON;
         CREATE TABLE IF NOT EXISTS tutor(
