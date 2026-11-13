@@ -45,4 +45,44 @@ describe('petRepository', () => {
       castrado: 1,
     });
   });
+
+  it('returns null when the pet does not exist', async () => {
+    const pet = await getPetById(db, 999);
+
+    expect(pet).toBeNull();
+  });
+  it('stores null in the optional fields that were not provided', async () => {
+    const id = await createPet(db, {
+      nome_pet: 'Mia',
+      especie: 'Gato',
+      sexo: 'Fêmea',
+    });
+
+    const pet = await getPetById(db, id);
+
+    expect(pet?.raca).toBeNull();
+    expect(pet?.peso).toBeNull();
+    expect(pet?.castrado).toBeNull();
+  });
+  it('rejects a pet linked to a tutor that does not exist', async () => {
+    await expect(
+      createPet(db, {
+        nome_pet: 'Rex',
+        especie: 'Cão',
+        sexo: 'Macho',
+        id_tutor: 999,
+      }),
+    ).rejects.toThrow(/FOREIGN KEY/);
+  });
+  it('treats malicious text as plain data, not as SQL', async () => {
+    const maliciousName = "Rex'); DROP TABLE pet;--";
+
+    const id = await createPet(db, {
+      nome_pet: maliciousName,
+      especie: 'Cão',
+      sexo: 'Macho',
+    });
+    const pet = await getPetById(db, id);
+    expect(pet?.nome_pet).toBe(maliciousName);
+  });
 });
