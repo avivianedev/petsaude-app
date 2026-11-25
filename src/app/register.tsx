@@ -8,32 +8,44 @@ import { colors, spacing, typography } from '@/theme/tokens';
 import { useState } from 'react';
 
 export default function Register() {
-  const [species, setSpecies] = useState('Cão');
-  const [sex, setSex] = useState('Macho');
+  const [form, setForm] = useState({
+    name: '',
+    species: '',
+    sex: '',
+    microchip: '',
+  });
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Novo Pet</Text>
 
       <Label text='Nome do pet' />
-      <InputDefault placeholder='Nome do Pet' />
+      <InputDefault
+        placeholder='Nome do Pet'
+        value={form.name}
+        onChangeText={text => setForm({ ...form, name: text })}
+      />
 
       <Label text='Espécie' />
       <SegmentedControl
         options={['Cão', 'Gato', 'Outro']}
-        onChange={setSpecies}
-        value={species}
+        onChange={text => setForm({ ...form, species: text })}
+        value={form.species}
       />
 
       <Label text='Sexo' />
       <SegmentedControl
         options={['Macho', 'Fêmea']}
-        onChange={setSex}
-        value={sex}
+        onChange={text => setForm({ ...form, sex: text })}
+        value={form.sex}
       />
 
       <Label text='Microchip' />
-      <InputDefault placeholder='Tem Microchip' />
+      <InputDefault
+        placeholder='Tem Microchip'
+        value={form.microchip}
+        onChangeText={text => setForm({ ...form, microchip: text })}
+      />
 
       <Link href='/'>Voltar ao início</Link>
     </View>

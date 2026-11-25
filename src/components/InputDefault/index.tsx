@@ -4,10 +4,14 @@ import { StyleSheet, TextInput, View } from 'react-native';
 
 type InputDefaultProps = {
   placeholder: string;
+  value: string;
+  onChangeText: (value: string) => void;
 } & React.ComponentProps<typeof TextInput>;
 
 export const InputDefault = ({
-  placeholder = '',
+  placeholder,
+  value,
+  onChangeText,
 
   ...props
 }: InputDefaultProps) => {
@@ -21,7 +25,7 @@ export const InputDefault = ({
         style={[styles.input, focused && styles.inputFocused]}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-
+        onChangeText={onChangeText}
         {...props}
       />
     </View>

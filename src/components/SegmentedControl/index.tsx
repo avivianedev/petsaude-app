@@ -20,6 +20,7 @@ export const SegmentedControl = ({
           style={[styles.btn, value === e && styles.btnSelected]}
           onPress={() => onChange(e)}
           key={e}
+          accessibilityRole='radio'
         >
           <Text
             style={[
