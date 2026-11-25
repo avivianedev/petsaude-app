@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { Link } from 'expo-router';
 import { InputDefault } from '@/components/InputDefault';
+import { Link } from 'expo-router';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { spacing, colors } from '@/theme/tokens';
 import { ButtonDefault } from '@/components/ButtonDefault';
 import { Label } from '@/components/Label';
+import { colors, spacing } from '@/theme/tokens';
 
 export default function Register() {
   return (
@@ -36,9 +36,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    //alignItems: 'center',
     padding: spacing.xl,
-    backgroundColor: '#F7F5F2',
+    backgroundColor: colors.bg,
   },
   btnSection: {
     flexDirection: 'row',
