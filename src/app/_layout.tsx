@@ -1,9 +1,26 @@
 import { useDatabaseInit } from '@/hooks/useDatabaseInit';
+import {
+  Nunito_600SemiBold,
+  Nunito_700Bold,
+  Nunito_800ExtraBold,
+  Nunito_900Black,
+  useFonts,
+} from '@expo-google-fonts/nunito';
 import { Stack } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function RootLayout() {
   const { ready, error } = useDatabaseInit();
+  const [fontsLoaded, fontError] = useFonts({
+    Nunito_600SemiBold,
+    Nunito_700Bold,
+    Nunito_800ExtraBold,
+    Nunito_900Black,
+  });
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   if (error) {
     return (
