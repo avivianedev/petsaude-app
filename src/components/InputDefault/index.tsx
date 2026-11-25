@@ -1,15 +1,12 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { colors, sizes, radius, spacing } from '@/theme/tokens';
+import { colors, radius, sizes, spacing } from '@/theme/tokens';
 import { useState } from 'react';
-import { Label } from '../Label';
+import { StyleSheet, TextInput, View } from 'react-native';
 
 type InputDefaultProps = {
-  labelText: string;
   placeholder: string;
 } & React.ComponentProps<typeof TextInput>;
 
 export const InputDefault = ({
-  labelText,
   placeholder = '',
 
   ...props
@@ -18,7 +15,6 @@ export const InputDefault = ({
 
   return (
     <View style={styles.container}>
-      <Label text={labelText} />
       <TextInput
         cursorColor={colors.primaryDark}
         placeholder={placeholder}

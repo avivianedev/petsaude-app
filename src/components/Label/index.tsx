@@ -1,5 +1,5 @@
+import { colors, fontFamily, spacing } from '@/theme/tokens';
 import { StyleSheet, Text } from 'react-native';
-import { colors, spacing } from '@/theme/tokens';
 
 type LabelProps = {
   text: string;
@@ -11,8 +11,9 @@ export const Label = ({ text }: LabelProps) => {
 
 const styles = StyleSheet.create({
   label: {
-    color: colors.text,
+    color: colors.textSecondary,
     padding: spacing.xxs,
     justifyContent: 'flex-start',
+    fontFamily: fontFamily.black,
   },
 });
