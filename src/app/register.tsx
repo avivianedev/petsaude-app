@@ -46,7 +46,7 @@ export default function Register() {
   });
 
   const breedOptions = breedsBySpecies[form.species] ?? [];
-  console.log(form);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Novo Pet</Text>
@@ -119,16 +119,24 @@ export default function Register() {
       <View style={styles.fieldRow}>
         <View style={styles.fieldColumn}>
           <Label text='Raça' />
-          <Pressable style={styles.dateInput} onPress={() => setIsOpen(true)}>
-            <Text
-              style={[
-                styles.placeholderText,
-                form.breed && styles.listButtonText,
-              ]}
-            >
-              {form.breed ? form.breed : 'Selecionar'}
-            </Text>
-          </Pressable>
+          {form.species === 'Outro' ? (
+            <InputDefault
+              placeholder='Digite a raça'
+              value={form.breed}
+              onChangeText={text => setForm({ ...form, breed: text })}
+            />
+          ) : (
+            <Pressable style={styles.dateInput} onPress={() => setIsOpen(true)}>
+              <Text
+                style={[
+                  styles.placeholderText,
+                  form.breed && styles.listButtonText,
+                ]}
+              >
+                {form.breed ? form.breed : 'Selecionar'}
+              </Text>
+            </Pressable>
+          )}
 
           <Modal
             visible={isOpen}
