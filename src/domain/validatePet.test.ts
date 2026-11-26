@@ -1,6 +1,11 @@
 import { validatePet } from './validatePet';
 
-const validForm = { name: 'Rex', species: 'Cão', sex: 'Macho' };
+const validForm = {
+  name: 'Rex',
+  species: 'Cão',
+  sex: 'Macho',
+  otherSpecies: 'Coelho',
+};
 
 describe('validatePet', () => {
   it('returns no errors when the name is filled', () => {
@@ -28,5 +33,23 @@ describe('validatePet', () => {
     const sex = '';
     const result = validatePet({ ...validForm, sex });
     expect(result).toEqual({ sex: 'Selecione o sexo do animal' });
+  });
+  it('returns an error when species is "Outro" and otherSpecies is empty', () => {
+    const otherSpecies = '';
+    const result = validatePet({
+      ...validForm,
+      species: 'Outro',
+      otherSpecies,
+    });
+    expect(result).toEqual({ otherSpecies: 'Informar o nome da espécie' });
+  });
+  it('returns no errors when species is "Outro" and the otherSpecies is filled', () => {
+    const otherSpecies = 'Coelho';
+    const result = validatePet({
+      ...validForm,
+      species: 'Outro',
+      otherSpecies,
+    });
+    expect(result).toEqual({});
   });
 });
