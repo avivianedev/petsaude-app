@@ -1,19 +1,8 @@
 import { InputDefault } from '@/components/InputDefault';
-import breeds from '@/data/breeds.json';
-import { Link } from 'expo-router';
-import {
-  FlatList,
-  KeyboardAvoidingView,
-  Modal,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-
 import { Label } from '@/components/Label';
 import { SegmentedControl } from '@/components/SegmentedControl';
+import { SelectField } from '@/components/SelectField';
+import breeds from '@/data/breeds.json';
 import {
   colors,
   fontFamily,
@@ -22,17 +11,23 @@ import {
   spacing,
   typography,
 } from '@/theme/tokens';
-import { useState } from 'react';
-
 import { DateTimePicker } from '@expo/ui/community/datetime-picker';
+import { Link } from 'expo-router';
+import { useState } from 'react';
+import {
+  KeyboardAvoidingView,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 export default function Register() {
   const [showPicker, setShowPicker] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const breedsBySpecies: Record<string, string[]> = breeds;
 
   const handleSelect = (item: string) => {
-    setIsOpen(false);
     setForm({ ...form, breed: item });
   };
 
@@ -135,52 +130,12 @@ export default function Register() {
                 onChangeText={text => setForm({ ...form, breed: text })}
               />
             ) : (
-              <Pressable
-                style={styles.dateInput}
-                onPress={() => setIsOpen(true)}
-              >
-                <Text
-                  style={[
-                    styles.placeholderText,
-                    form.breed && styles.listButtonText,
-                  ]}
-                >
-                  {form.breed ? form.breed : 'Selecionar'}
-                </Text>
-              </Pressable>
+              <SelectField
+                onChange={handleSelect}
+                options={breedOptions}
+                value={form.breed}
+              />
             )}
-
-            <Modal
-              visible={isOpen}
-              animationType='slide'
-              onRequestClose={() => setIsOpen(false)}
-            >
-              <View style={styles.modalContent}>
-                <Pressable
-                  style={styles.closeButton}
-                  onPress={() => setIsOpen(false)}
-                >
-                  <Text style={styles.closeButtonText}>X</Text>
-                </Pressable>
-                <FlatList
-                  data={breedOptions}
-                  keyExtractor={item => item}
-                  ListEmptyComponent={
-                    <Text style={styles.textListEmpty}>
-                      Selecione a espécie primeiro
-                    </Text>
-                  }
-                  renderItem={({ item }) => (
-                    <Pressable
-                      style={styles.listButton}
-                      onPress={() => handleSelect(item)}
-                    >
-                      <Text style={styles.listButtonText}>{item}</Text>
-                    </Pressable>
-                  )}
-                />
-              </View>
-            </Modal>
           </View>
 
           <View style={styles.fieldColumn}>
@@ -230,12 +185,6 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     textAlign: 'center',
   },
-  container: {
-    flex: 1,
-    margin: spacing.lg,
-    backgroundColor: colors.bg,
-    paddingVertical: spacing.xxl,
-  },
   fieldRow: {
     flexDirection: 'row',
     width: '100%',
@@ -256,47 +205,6 @@ const styles = StyleSheet.create({
   textDateInput: {
     color: colors.text,
     fontFamily: fontFamily.bold,
-  },
-  modalContent: {
-    flex: 1,
-    padding: spacing.lg,
-    paddingTop: spacing.xxl,
-  },
-  closeButton: {
-    minHeight: sizes.minTouchTarget,
-    backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '12%',
-    borderRadius: radius.full,
-  },
-  closeButtonText: {
-    fontFamily: fontFamily.extraBold,
-    color: colors.textOnPrimary,
-  },
-  listButtonText: {
-    color: colors.text,
-    fontFamily: fontFamily.bold,
-  },
-  listButton: {
-    paddingHorizontal: spacing.md,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    marginBottom: spacing.md,
-    minHeight: sizes.minTouchTarget,
-  },
-  textListEmpty: {
-    color: colors.textSecondary,
-    fontFamily: fontFamily.bold,
-    alignSelf: 'center',
-    justifyContent: 'center',
-  },
-  placeholderText: {
-    width: '100%',
-    color: colors.textDisabled,
-    fontFamily: fontFamily.bold,
-    textAlign: 'left',
-    paddingHorizontal: spacing.md,
   },
   screen: {
     flex: 1,
