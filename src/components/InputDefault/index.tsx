@@ -1,4 +1,4 @@
-import { colors, radius, sizes, spacing } from '@/theme/tokens';
+import { colors, fontFamily, radius, sizes, spacing } from '@/theme/tokens';
 import { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 
@@ -27,19 +27,25 @@ export const InputDefault = ({
         onBlur={() => setFocused(false)}
         onChangeText={onChangeText}
         {...props}
+        placeholderTextColor={colors.textDisabled}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { width: '100%' },
-  label: { color: colors.text, padding: spacing.xxs },
+  container: {
+    width: '100%',
+  },
+
   input: {
     width: '100%',
     borderRadius: radius.md,
     borderWidth: sizes.inputBorderWidth,
     borderColor: colors.surfaceMuted,
+    fontFamily: fontFamily.bold,
+    color: colors.text,
+    paddingHorizontal: spacing.md,
   },
 
   inputFocused: { borderColor: colors.primary },
