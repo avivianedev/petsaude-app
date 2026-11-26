@@ -134,6 +134,7 @@ export default function Register() {
                 onChange={handleSelect}
                 options={breedOptions}
                 value={form.breed}
+                emptyMessage='Selecione a espécie primeiro'
               />
             )}
           </View>
@@ -159,7 +160,7 @@ export default function Register() {
 
         <Label text='Castrado(a)' />
         <SegmentedControl
-          options={['SIM', 'NÃO']}
+          options={['Sim', 'Não']}
           onChange={text => {
             setForm({ ...form, neutered: text });
           }}

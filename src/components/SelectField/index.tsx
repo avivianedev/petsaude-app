@@ -13,9 +13,15 @@ type SelectFieldProps = {
   options: string[];
   value: string;
   onChange: (value: string) => void;
+  emptyMessage: string;
 };
 
-export const SelectField = ({ options, onChange, value }: SelectFieldProps) => {
+export const SelectField = ({
+  options,
+  onChange,
+  value,
+  emptyMessage,
+}: SelectFieldProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleItemPress = (item: string) => {
@@ -45,9 +51,7 @@ export const SelectField = ({ options, onChange, value }: SelectFieldProps) => {
             data={options}
             keyExtractor={item => item}
             ListEmptyComponent={
-              <Text style={styles.textListEmpty}>
-                Selecione a espécie primeiro
-              </Text>
+              <Text style={styles.textListEmpty}>{emptyMessage}</Text>
             }
             renderItem={({ item }) => (
               <Pressable
