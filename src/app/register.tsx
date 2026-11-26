@@ -3,6 +3,7 @@ import { Label } from '@/components/Label';
 import { SegmentedControl } from '@/components/SegmentedControl';
 import { SelectField } from '@/components/SelectField';
 import breeds from '@/data/breeds.json';
+import { formatDisplayDate } from '@/domain/date';
 import {
   colors,
   fontFamily,
@@ -99,7 +100,9 @@ export default function Register() {
               onPress={() => setShowPicker(true)}
             >
               <Text style={styles.textDateInput}>
-                {form.birthDate ? form.birthDate : 'Selecionar data'}
+                {form.birthDate
+                  ? formatDisplayDate(form.birthDate)
+                  : 'Selecionar data'}
               </Text>
             </Pressable>
             {showPicker && (
