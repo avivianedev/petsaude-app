@@ -1,9 +1,11 @@
 import { InputDefault } from '@/components/InputDefault';
 import { Label } from '@/components/Label';
+import { PrimaryButton } from '@/components/PrimaryButton';
 import { SegmentedControl } from '@/components/SegmentedControl';
 import { SelectField } from '@/components/SelectField';
 import breeds from '@/data/breeds.json';
-import { formatDisplayDate } from '@/domain/date';
+import { formatDate, formatDisplayDate } from '@/domain/date';
+import { validatePet } from '@/domain/validatePet';
 import {
   colors,
   fontFamily,
@@ -27,6 +29,7 @@ import {
 export default function Register() {
   const [showPicker, setShowPicker] = useState(false);
   const breedsBySpecies: Record<string, string[]> = breeds;
+  const today = new Date();
 
   const handleSelect = (item: string) => {
     setForm({ ...form, breed: item });
@@ -46,6 +49,9 @@ export default function Register() {
   });
 
   const breedOptions = breedsBySpecies[form.species] ?? [];
+
+  const errors = validatePet(form, formatDate(today));
+  const isValid = Object.keys(errors).length === 0;
 
   return (
     <KeyboardAvoidingView style={styles.screen} behavior='padding'>
@@ -178,6 +184,12 @@ export default function Register() {
         />
 
         <Link href='/'>Voltar ao início</Link>
+
+        <PrimaryButton
+          title='Cadastrar pet'
+          onPress={() => console.log('ok')}
+          disable={!isValid}
+        />
       </ScrollView>
     </KeyboardAvoidingView>
   );
