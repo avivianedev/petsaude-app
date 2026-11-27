@@ -170,7 +170,7 @@ export default function Register() {
           value={form.neutered}
         />
 
-        <Label text='Pelagem' />
+        <Label text='Cor do pelo' />
         <InputDefault
           placeholder=''
           value={form.coat}
