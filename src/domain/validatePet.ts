@@ -3,6 +3,7 @@ type PetFormData = {
   species: string;
   sex: string;
   otherSpecies?: string;
+  birthDate?: string;
 };
 
 type PetFormErrors = {
@@ -10,9 +11,13 @@ type PetFormErrors = {
   species?: string;
   sex?: string;
   otherSpecies?: string;
+  birthDate?: string;
 };
 
-export const validatePet = (form: PetFormData): PetFormErrors => {
+export const validatePet = (
+  form: PetFormData,
+  today: string,
+): PetFormErrors => {
   const errors: PetFormErrors = {};
   const trimmedName = form.name.trim();
 
@@ -24,6 +29,10 @@ export const validatePet = (form: PetFormData): PetFormErrors => {
     const trimmedNameSpecies = form.otherSpecies?.trim();
     if (trimmedNameSpecies?.length === 0)
       errors.otherSpecies = 'Informar o nome da espécie';
+  }
+  if (form.birthDate) {
+    if (form.birthDate > today)
+      errors.birthDate = 'Data não pode ser superior que a atual';
   }
 
   return errors;
