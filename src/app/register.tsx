@@ -161,10 +161,11 @@ export default function Register() {
 
         <Label text='Microchip' />
         <InputDefault
-          placeholder='Somente números'
+          placeholder='Nº do microchip, se houver'
           value={form.microchip}
           onChangeText={text => setForm({ ...form, microchip: text })}
-          keyboardType='number-pad'
+          keyboardType='default'
+          autoCapitalize='characters'
         />
 
         <Label text='Castrado(a)' />
