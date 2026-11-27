@@ -24,7 +24,7 @@ export const toNewPet = (form: PetForm): NewPet => {
     pelagem: form.coat.trim() || undefined,
     raca: form.breed.trim() || undefined,
     data_nascimento: form.birthDate || undefined,
-    microchip: form.microchip || undefined,
+    microchip: form.microchip.trim() || undefined,
   };
 
   return newPet;

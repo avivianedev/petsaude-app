@@ -62,14 +62,23 @@ describe('toNewPet', () => {
   it('treats fields with only spaces as empty', () => {
     const coat = '  ';
     const breed = '  ';
+    const microchip = '     ';
 
     const result = toNewPet({
       ...validForm,
       coat,
       breed,
+      microchip,
     });
 
     expect(result.pelagem).toBeUndefined();
     expect(result.raca).toBeUndefined();
+    expect(result.microchip).toBeUndefined();
+  });
+  it('keeps letters in the microchip number', () => {
+    const microchip = '125478TH';
+    const result = toNewPet({ ...validForm, microchip });
+
+    expect(result.microchip).toBe('125478TH');
   });
 });
